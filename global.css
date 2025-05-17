@@ -1,0 +1,85 @@
+body {
+  font: 100%/1.5 system-ui, sans-serif;
+  display: flex;
+  flex-flow: column;
+  max-width: 80em;
+  min-height: 100vh;
+  box-sizing: border-box;
+  margin: auto;
+  padding: 1em;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 5;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+#map {
+  width: 100%; /* Adjust width to your desired size */
+  height: 100%; /* Adjust height to your desired size */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: subtle shadow for effect */
+  border-radius: 8px; /* Optional: rounded corners */
+}
+
+#map svg {
+
+  
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: auto;
+  fill-opacity: 60%;
+}
+
+#map svg circle,
+.legend > div {
+  --color-departures: steelblue;
+  --color-arrivals: darkorange;
+  --color: color-mix(
+    in oklch,
+    var(--color-departures) calc(100% * var(--departure-ratio)),
+    var(--color-arrivals)
+  );
+}
+
+#map svg circle {
+  fill: var(--color);
+}
+
+/* 3) Legend container: flex row, gap, and a bit of vertical spacing */
+/* 1. Legend container: equal‐width flex items, tiny gap */
+.legend {
+  display: flex;
+  gap: 1px;            /* just enough separation so colors don’t bleed */
+  margin-block: 1em;   /* space above/below the legend */
+  height: 2.5em;       /* fixed height for even panels */
+  overflow: hidden;    /* clip any overflow from padding */
+}
+
+/* 2. Each swatch takes equal space, padded more horizontally than vertically */
+.legend > div {
+  flex: 1;                     /* equal widths */
+  padding: 0.25em 1em;         /* more left/right padding than top/bottom */
+  display: flex;
+  align-items: center;         /* vertical centering of text */
+  justify-content: center;     /* default center, overridden below */
+  color: white;                /* ensure text is legible on the swatch */
+  font-size: 0.85rem;
+  white-space: nowrap;         /* prevent label wrapping */
+}
+
+/* 3. Individual text‐alignment per swatch */
+
+/* 4. Reuse your color‐mix variables for the background */
+.legend > div {
+  background: var(--color);
+}
